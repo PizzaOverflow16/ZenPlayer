@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    /* Colores base (nuestro JS los cambiará dinámicamente) */
+    --bg-color: #ffdde1; 
+    --bg-gradient: #ee9ca7;
+    --panel-bg: rgba(255, 255, 255, 0.45); 
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --accent-color: #ff6b81; 
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    background-image: linear-gradient(315deg, var(--bg-color) 0%, var(--bg-gradient) 74%);
+    transition: background 1.5s ease; /* Transición súper suave al cambiar la canción */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* El contenedor principal con efecto de cristal */
+.main-container {
+    display: flex;
+    width: 90%;
+    max-width: 900px;
+    height: 80vh;
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    transition: all 1s ease;
+}
+
+/* --- LADO IZQUIERDO: Reproductor --- */
+.player-panel {
+    width: 45%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.album-art-container {
+    width: 240px;
+    height: 240px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    margin-bottom: 25px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.album-art-container:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+#album-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+}
+
+.song-info {
+    text-align: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+#song-title {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--text-main);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 1s ease;
+}
+
+#song-artist {
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    transition: color 1s ease;
+}
+
+/* Botones de Control */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.control-btn:hover {
+    color: var(--accent-color);
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.main-btn {
+    font-size: 2.8rem;
+    color: var(--accent-color);
+}
+
+.main-btn:hover {
+    transform: scale(1.1);
+}
+
+.small {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+/* --- LADO DERECHO: Letras --- */
+.lyrics-panel {
+    width: 55%;
+    padding: 40px 50px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+}
+
+/* Barra de desplazamiento invisible y bonita */
+.lyrics-panel::-webkit-scrollbar {
+    width: 6px;
+}
+.lyrics-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+.lyrics-panel::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 10px;
+}
+
+.lyrics-text {
+    font-size: 1.15rem;
+    line-height: 2;
+    color: var(--text-main);
+    text-align: center;
+    white-space: pre-wrap;
+    margin: auto 0;
+    transition: color 1s ease;
+    font-weight: 400;
+}

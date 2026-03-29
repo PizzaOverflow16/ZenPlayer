@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-hearts" id="bg-hearts"></div>
+
+    <div class="main-container">
+        <div class="player-panel">
+            <div class="album-art-container">
+                <img id="album-art" src="https://via.placeholder.com/300" alt="Carátula de la canción" crossorigin="anonymous">
+            </div>
+            
+            <div class="song-info">
+                <h2 id="song-title">Cargando nuestra playlist...</h2>
+                <h3 id="song-artist">❤️</h3>
+            </div>
+
+            <div class="controls">
+                <button id="btn-shuffle" class="control-btn small"><i class="fas fa-random"></i></button>
+                <button id="btn-prev" class="control-btn"><i class="fas fa-step-backward"></i></button>
+                <button id="btn-play" class="control-btn main-btn"><i class="fas fa-play"></i></button>
+                <button id="btn-next" class="control-btn"><i class="fas fa-step-forward"></i></button>
+                <button id="btn-loop" class="control-btn small"><i class="fas fa-redo"></i></button>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="lyrics-panel">
+            <div id="lyrics-content" class="lyrics-text">
+                Preparando... ✨
+            </div>
+        </div>
+    </div>
+
+    <div id="youtube-player" style="position: absolute; width: 0; height: 0; border: 0; overflow: hidden;"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="letras.js"></script> 
+    <script src="script.js"></script>
+</body>
+</html>
