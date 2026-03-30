@@ -6,6 +6,7 @@ const PLAYLIST_ID = 'PLFEuxzsi8MWO4LB3EY7eV8OZClEsHX4f4';
 let player;
 let lyricsData = letrasGuardadas;
 const colorThief = new ColorThief();
+let isShuffle = false; // <-- Variable para controlar el estado del aleatorio
 
 // Elementos del DOM
 const albumArt = document.getElementById('album-art');
@@ -13,8 +14,6 @@ const songTitle = document.getElementById('song-title');
 const lyricsContent = document.getElementById('lyrics-content');
 const btnPlay = document.getElementById('btn-play');
 const iconPlay = btnPlay.querySelector('i');
-
-
 
 // 2. Inicializar la API de YouTube (Esta función la llama la API de Google automáticamente)
 function onYouTubeIframeAPIReady() {
@@ -24,7 +23,7 @@ function onYouTubeIframeAPIReady() {
         playerVars: {
             listType: 'playlist',
             list: PLAYLIST_ID,
-            loop: 1,
+            loop: 1, // Esto ayuda a que se repita la playlist
             autoplay: 0,
             controls: 0,
             disablekb: 1
@@ -38,6 +37,7 @@ function onYouTubeIframeAPIReady() {
 
 // 3. Configurar los botones cuando YouTube esté listo
 function onPlayerReady(event) {
+    // Botón Play/Pause
     btnPlay.addEventListener('click', () => {
         if (player.getPlayerState() === YT.PlayerState.PLAYING) {
             player.pauseVideo();
@@ -46,11 +46,45 @@ function onPlayerReady(event) {
         }
     });
 
+    // Botones Siguiente y Anterior
     document.getElementById('btn-next').addEventListener('click', () => player.nextVideo());
     document.getElementById('btn-prev').addEventListener('click', () => player.previousVideo());
-    document.getElementById('btn-shuffle').addEventListener('click', () => {
-        player.setShuffle(true);
-        player.nextVideo();
+
+    // --- NUEVA LÓGICA DEL SHUFFLE (ALEATORIO) ---
+    const btnShuffle = document.getElementById('btn-shuffle');
+    btnShuffle.addEventListener('click', () => {
+        isShuffle = !isShuffle; // Cambiamos de apagado a encendido o viceversa
+
+        if (isShuffle) {
+            player.setShuffle(true);
+            // Feedback visual: se "enciende" el botón con el color de la carátula
+            btnShuffle.style.color = "var(--accent-color)";
+            btnShuffle.style.filter = "drop-shadow(0 0 5px var(--accent-color))";
+            // Saltamos a una canción al azar inmediatamente
+            player.nextVideo();
+        } else {
+            player.setShuffle(false);
+            // Feedback visual: se "apaga" el botón
+            btnShuffle.style.color = "var(--text-muted)";
+            btnShuffle.style.filter = "none";
+        }
+    });
+
+    // --- NUEVA LÓGICA DEL LOOP (REPETIR) ---
+    const btnLoop = document.getElementById('btn-loop');
+    btnLoop.addEventListener('click', () => {
+        // Obtenemos si ya estaba repitiéndose o no
+        const isLooping = player.getOptions().loop;
+        player.setLoop(!isLooping); // Lo invertimos
+
+        // Feedback visual
+        if (!isLooping) {
+            btnLoop.style.color = "var(--accent-color)";
+            btnLoop.style.filter = "drop-shadow(0 0 5px var(--accent-color))";
+        } else {
+            btnLoop.style.color = "var(--text-muted)";
+            btnLoop.style.filter = "none";
+        }
     });
 
     actualizarInterfaz();
@@ -83,7 +117,7 @@ function actualizarInterfaz() {
     if (lyricsData[videoId]) {
         lyricsContent.innerText = lyricsData[videoId];
     } else {
-        lyricsContent.innerText = "❤️ Disfruta la canción ❤️\n(Letra no disponible)";
+        lyricsContent.innerText = "❤️ ❤️\n(Letra no disponible)";
     }
 
     // Actualizar carátula y extraer colores

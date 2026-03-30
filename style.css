@@ -168,3 +168,70 @@ body, html {
     transition: color 1s ease;
     font-weight: 400;
 }
+
+/* --- NUEVO: FOTOS TIPO BURBUJAS DE RECUERDOS (NÍTIDAS) --- */
+.photo-stains {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Atrás del reproductor de cristal */
+    pointer-events: none;
+}
+
+.stain {
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    
+    /* MODIFICACIONES PARA NITIDEZ: */
+    opacity: 0.6; /* Subimos la opacidad para que sean bien visibles (no difuminadas) */
+    mix-blend-mode: luminosity; /* Mantiene la integración dinámica con el color del fondo */
+    filter: none; /* Quitamos el blur por completo */
+    
+    /* Diseño: */
+    border-radius: 30px; /* Formas rectangulares redondeadas y limpias, no manchas */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Un borde fino para darles definición */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Sombra para dar profundidad */
+    
+    animation: float 20s ease-in-out infinite alternate; /* Animación más lenta y suave */
+}
+
+/* Posiciones y tamaños fijos para las burbujas */
+.stain-1 {
+    width: 350px; height: 350px;
+    top: 5%; left: 5%;
+}
+
+.stain-2 {
+    width: 400px; height: 400px;
+    bottom: 5%; right: 5%;
+    animation-delay: -7s;
+}
+
+.stain-3 {
+    width: 300px; height: 300px;
+    top: 20%; left: 50%;
+    animation-delay: -14s;
+}
+
+/* Animación de flotación suave */
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(40px) rotate(3deg); }
+}
+
+/* --- NUEVO: TEXTO TE AMO --- */
+.love-message {
+    position: absolute;
+    bottom: 4vh; 
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.95); /* Un poco más de blanco */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
